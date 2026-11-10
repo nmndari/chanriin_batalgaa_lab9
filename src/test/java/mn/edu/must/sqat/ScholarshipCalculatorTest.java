@@ -128,4 +128,55 @@ class ScholarshipCalculatorTest {
     void scholarship_gpa25_credits16_returns0() {
         assertEquals(0, calc.scholarship(2.5, 16, false));
     }
+
+    // ===== Хэсэг C: gpa() давталтын заагийн тестүүд (0 / 1 / 2+ дүрэм) =====
+    // 0 удаа: gpa_nullArray_throws, gpa_emptyArray_throws (дээр, Хэсэг B-д бичигдсэн)
+
+    @Test
+    void gpa_loopOnce_singleScore95_returns4point0() {
+        assertEquals(4.0, calc.gpa(new double[] {95}), 1e-9);
+    }
+
+    @Test
+    void gpa_loopManyTimes_fourScores_returns2point5() {
+        // A=4, B=3, C=2, D=1 -> 10 / 4 = 2.5
+        assertEquals(2.5, calc.gpa(new double[] {95, 85, 75, 65}), 1e-9);
+    }
+
+    // ===== Хэсэг D: letterGrade() зааг утгын тестүүд =====
+
+    @Test
+    void letterGrade_boundary0_returnsF() {
+        assertEquals("F", calc.letterGrade(0));
+    }
+
+    @Test
+    void letterGrade_boundary59_99_returnsF() {
+        assertEquals("F", calc.letterGrade(59.99));
+    }
+
+    @Test
+    void letterGrade_boundary60_returnsD() {
+        assertEquals("D", calc.letterGrade(60));
+    }
+
+    @Test
+    void letterGrade_boundary69_99_returnsD() {
+        assertEquals("D", calc.letterGrade(69.99));
+    }
+
+    @Test
+    void letterGrade_boundary89_99_returnsB() {
+        assertEquals("B", calc.letterGrade(89.99));
+    }
+
+    @Test
+    void letterGrade_boundary90_returnsA() {
+        assertEquals("A", calc.letterGrade(90));
+    }
+
+    @Test
+    void letterGrade_boundary100_returnsA() {
+        assertEquals("A", calc.letterGrade(100));
+    }
 }
